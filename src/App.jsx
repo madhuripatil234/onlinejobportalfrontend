@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './contactus.css';
+import ContactUsForm from "./contactus";
 
 
 // Dummy Components (replace with actual ones)
@@ -24,7 +26,7 @@ class App extends React.Component {
                 <NavLink className="nav-link" to="/viewquestion">About</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/attendexam">Contact_us</NavLink>
+                <NavLink className="nav-link" to="/contactus">Contact_us</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/attendexam">Service</NavLink>
@@ -34,13 +36,14 @@ class App extends React.Component {
           </div>
         </nav>
 
-        <div className="container mt-3">
+     
           <Routes>
             <Route path="/" element={<AddQuestion />} />
             <Route path="/viewquestion" element={<ViewQuestion />} />
             <Route path="/attendexam" element={<AttendExam />} />
+            < Route path="/contactus" element={<ContactUsForm/>}/>
           </Routes>
-        </div>
+        
       </BrowserRouter>
     );
   }
