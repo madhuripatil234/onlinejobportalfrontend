@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './loginpage';
 import './login.css';
-
+import './contactus.css';
+import ContactUsForm from "./contactus";
 
 const AddQuestion = () => <h2>Add Questions Page</h2>;
 const ViewQuestion = () => <h2>View Questions Page</h2>;
@@ -13,9 +14,7 @@ const AttendExam = () => <h2>Attend Exam Page</h2>;
 class App extends React.Component {
   render() {
     return (
-      
-      <BrowserRouter> 
-      
+      <BrowserRouter>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <NavLink className="navbar-brand" to="/">Online Job Portal</NavLink>
           <div className="collapse navbar-collapse">
@@ -27,31 +26,26 @@ class App extends React.Component {
                 <NavLink className="nav-link" to="/viewquestion">About</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">Contact_us</NavLink>
+                <NavLink className="nav-link" to="/contactus">Contact Us</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/service">Service</NavLink>
               </li>
             </ul>
-            
           </div>
           <div>
             <a href="/login" className="login_btn">Login</a>
-
           </div>
         </nav>
-       
 
-        
-          <Routes>
-            <Route path="/" element={<AddQuestion />} />
-            <Route path="/viewquestion" element={<ViewQuestion />} />
-            <Route path="/attendexam" element={<AttendExam />} />
-             <Route path="/login" element={<Login />} />   
-          </Routes>
-        
+        <Routes>
+          <Route path="/" element={<AddQuestion />} />
+          <Route path="/viewquestion" element={<ViewQuestion />} />
+          <Route path="/attendexam" element={<AttendExam />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/contactus" element={<ContactUsForm />} />
+        </Routes>
       </BrowserRouter>
-     
     );
   }
 }
