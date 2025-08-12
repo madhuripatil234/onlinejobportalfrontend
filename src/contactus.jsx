@@ -1,4 +1,4 @@
-// src/ContactUsForm.jsx
+
 import React, { Component } from "react";
 import contactservice from "./services/contactservice";
 
@@ -17,6 +17,7 @@ class ContactUsForm extends Component {
 
 
     sendContactToServer=()=>{
+        
         let promise=contactservice.saveContact(this.state);
         promise.then((result)=>{
             this.setState({msg:result.msg});
@@ -25,6 +26,16 @@ class ContactUsForm extends Component {
         });
     }
 
+    handleChange = (e) => {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
+};
+handleSubmit = (e) => {
+    e.preventDefault(); // stop page reload
+    this.sendContactToServer();
+};
+
     render() {
         const { name, email, subject, message, msg } = this.state;
 
@@ -32,7 +43,7 @@ class ContactUsForm extends Component {
             <div className="container">
 
                 <div className="contact">
-                    <h2>Contact Us</h2>
+                    <h2>Contact Us</h2> 5
                 </div>
 
                 <form onSubmit={this.handleSubmit}>
