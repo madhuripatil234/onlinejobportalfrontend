@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom"
+import { Navigate } from "react-router-dom";
+
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -12,7 +14,7 @@ export default class Login extends React.Component {
   loginlogic = (value) => {
     this.setState({ isLogin: value });
   };
-
+  
   render() {
     const { isLogin } = this.state;
 
@@ -40,35 +42,35 @@ export default class Login extends React.Component {
               <div className="input-group">
 
                  <div className="input-group">
-                 <input type="text" name="uname" placeholder="User name..." />
+                 <input type="text" name="uname" placeholder="User name..."  onChange={(e) => this.setState({ uname: e.target.value })}/>
                 </div>
 
                  <div className="input-group">
-                 <input type="password" name="pass" placeholder="password.." />
+                 <input type="password" name="pass" placeholder="password.." onChange={(e) => this.setState({ pass: e.target.value })} />
                 </div>
 
                 <div className="input-group">
-                  <input type="text" name="uemail" placeholder="Email" />
+                  <input type="text" name="uemail" placeholder="Email" onChange={(e) => this.setState({ uemail: e.target.value })}/>
                 </div>
 
                  <div className="input-group">
-                 <input type="text" name="contact" placeholder="Contact" />
+                 <input type="text" name="contact" placeholder="Contact" onChange={(e) => this.setState({ contact: e.target.value })}/>
                 </div>
 
                 <div className="input-group"> 
-                  <input type="text" name="passoutyear" placeholder="Passout Year" />
+                  <input type="text" name="passoutyear" placeholder="Passout Year" onChange={(e) => this.setState({ passoutyear: e.target.value })} />
                 </div>
 
                 <div className="input-group">
-                <input type="text" name="collegename" placeholder="College Name" />
+                <input type="text" name="collegename" placeholder="College Name..." onChange={(e) => this.setState({ college: e.target.value })}/>
                 </div>
 
                 <div className="input-group">
-                <input type="text" name="skills" placeholder="Skills" />
+                <input type="text" name="skills" placeholder="Skills..." onChange={(e) => this.setState({ skills: e.target.value })}/>
                 </div>
 
                 <div className="input-group">
-                 <input type="text" name="experience" placeholder="Experience" />
+                 <input type="text" name="experience" placeholder="Experience..." onChange={(e) => this.setState({ experience: e.target.value })}/>
                 </div>
 
                 <div className="input-group">
@@ -102,9 +104,10 @@ export default class Login extends React.Component {
 
           
 
-            <button type="submit" className="login-btn">
-              {isLogin ? 'Login' : 'Register'}
+            <button type="button" className="login-btn">
+              {isLogin ? "Login" : "Register"}
             </button>
+
 
             <div className="auth-footer">
                {isLogin ? (

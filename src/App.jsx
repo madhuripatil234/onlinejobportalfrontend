@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Login from './loginpage';
+import Login from './component/loginpage';
 import './login.css';
 import './contactus.css';
-import ContactUsForm from "./contactus";
-
+import ContactUsForm from "./component/contactus";
+import Admin from "./component/admindashboard";
 const AddQuestion = () => <h2>Add Questions Page</h2>;
 const ViewQuestion = () => <h2>View Questions Page</h2>;
 const AttendExam = () => <h2>Attend Exam Page</h2>;
@@ -31,6 +31,9 @@ class App extends React.Component {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/service">Service</NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">admin</NavLink>
+              </li>
             </ul>
           </div>
           <div>
@@ -44,6 +47,8 @@ class App extends React.Component {
           <Route path="/attendexam" element={<AttendExam />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contactus" element={<ContactUsForm />} />
+           <Route path="/admin" element={<Admin />} />
+         
         </Routes>
       </BrowserRouter>
     );
