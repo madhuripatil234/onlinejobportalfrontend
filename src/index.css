@@ -13,10 +13,9 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, rgba(67, 17, 216, 0.93), rgba(145, 59, 153, 0.822));
-
-  color: whitesmoke;
+   color: whitesmoke;
    border-top-left-radius: 15px;
-border-top-right-radius: 15px;
+  border-top-right-radius: 15px;
 
   
 }

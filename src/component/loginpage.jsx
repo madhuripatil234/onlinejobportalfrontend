@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom"
 import { Navigate } from "react-router-dom";
+import Contactservice from "../services/contactservice";
 
 
 export default class Login extends React.Component {
@@ -10,6 +11,21 @@ export default class Login extends React.Component {
       isLogin: true,
     };
   }
+
+  sendCategorytoservice = () => {
+  let promise = Adminservice.contactservice(this.state);
+  promise
+    .then((result) => {
+     
+      this.setState({ msg: result.data.status });
+    })
+    .catch((err) => {
+      this.setState({ 
+        msg: err.response ? err.response.data.status : "Error occurred" 
+      });
+    });
+};
+
 
   loginlogic = (value) => {
     this.setState({ isLogin: value });
