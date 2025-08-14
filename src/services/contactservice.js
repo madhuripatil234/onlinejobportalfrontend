@@ -5,9 +5,10 @@ class Contactservice {
         let promise=axios.post("http://localhost:3000/contactpage",contData);
         return promise;
     }
-     saveLogin(contData){
-        let promise=axios.post("http://localhost:3000/loginadmin",contData);
+     saveLogin(lcontData){
+        let promise=axios.post("http://localhost:3000/loginadmin",lcontData);
         return promise;
     }
+    
 }
 export default new Contactservice();
