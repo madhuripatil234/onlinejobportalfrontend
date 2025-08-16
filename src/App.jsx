@@ -8,10 +8,9 @@ import './contactus.css';
 import ContactUsForm from "./component/contactus";
 import Admin from "./component/admindashboard";
 
-import JobCards from "./component/home";
 
-
-
+const AddQuestion = () => <h2>Add Questions Page</h2>;
+const ViewQuestion = () => <h2>View Questions Page</h2>;
 const AttendExam = () => <h2>Attend Exam Page</h2>;
 
 class App extends React.Component {
@@ -34,9 +33,6 @@ class App extends React.Component {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/service">Service</NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/admin">admin</NavLink>
-              </li>
             </ul>
           </div>
           <div>
@@ -45,13 +41,13 @@ class App extends React.Component {
         </nav>
 
         <Routes>
-          
-          <Route path="/home" element={<JobCards />} />
+     
           <Route path="/attendexam" element={<AttendExam />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contactus" element={<ContactUsForm />} />
-           <Route path="/admin" element={<Admin />} />
-         
+          <Route path="/addquestion" element={<AddQuestion />} />
+          <Route path="/viewquestion" element={<ViewQuestion />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     );

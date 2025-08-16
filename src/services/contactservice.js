@@ -1,14 +1,21 @@
 import axios from "axios";
 
 class Contactservice {
-    saveContact(contData){
-        let promise=axios.post("http://localhost:3000/contactpage",contData);
-        return promise;
+    saveContact(contData) {
+        return axios.post("http://localhost:3000/contactpage", contData);
     }
-     saveLogin(lcontData){
-        let promise=axios.post("http://localhost:3000/loginadmin",lcontData);
-        return promise;
+
+    adminLogin(data) {
+        return axios.post("http://localhost:3000/loginadmin", data);
     }
-    
+
+    hrLogin(hrData) {
+        return axios.post("http://localhost:3000/hrlog", hrData);
+    }
+
+    userLogin(uData) {
+        return axios.post("http://localhost:3000/loginuser", uData);
+    }
 }
+
 export default new Contactservice();
