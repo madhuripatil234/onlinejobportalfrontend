@@ -21,7 +21,8 @@ export default class Admin extends React.Component {
         totalHRs: 0,
         totalApplicants: 0,
       },
-      activeView: "dashboard" // "dashboard", "addHR", "viewHR"
+      activeView: "dashboard", // "dashboard", "addHR", "viewHR"
+      loading: true,
     };
   }
 
@@ -30,18 +31,23 @@ export default class Admin extends React.Component {
   };
 
   componentDidMount() {
-    fetchDashboardStats().then((data) => {
-      this.setState({ stats: data });
-    });
+    fetchDashboardStats()
+      .then((data) => {
+        this.setState({ stats: data, loading: false });
+      })
+      .catch((error) => {
+        console.error("Error fetching dashboard stats:", error);
+        this.setState({ loading: false });
+      });
   }
 
   render() {
     const { totalJobs, totalHRs, totalApplicants } = this.state.stats;
-    const { activeView } = this.state;
+    const { activeView, loading } = this.state;
 
     return (
       <div className="d-flex" style={{ minHeight: "100vh" }}>
-        
+
         {/* Sidebar */}
         <div className="bg-dark text-white p-3" style={{ width: "250px" }}>
           <h4>Admin Panel</h4>
@@ -83,40 +89,47 @@ export default class Admin extends React.Component {
 
         {/* Main Content */}
         <div className="flex-grow-1 p-4 bg-light">
-          {activeView === "dashboard" && (
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
             <>
-              <h2 className="mb-4">Dashboard Overview</h2>
-              <div className="row">
-                <div className="col-md-4 mb-3">
-                  <div className="card text-white bg-primary">
-                    <div className="card-body">
-                      <h5>Total Jobs</h5>
-                      <p className="card-text display-6">{totalJobs}</p>
+              {activeView === "dashboard" && (
+                <>
+                  <h2 className="mb-4">Dashboard Overview</h2>
+                  <div className="row">
+                    <div className="col-md-4 mb-3">
+                      <div className="card text-white bg-primary">
+                        <div className="card-body">
+                          <h5>Total Jobs</h5>
+                          <p className="card-text display-6">{totalJobs}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-3">
-                  <div className="card text-white bg-success">
-                    <div className="card-body">
-                      <h5>Total HRs</h5>
-                      <p className="card-text display-6">{totalHRs}</p>
+                    <div className="col-md-4 mb-3">
+                      <div className="card text-white bg-success">
+                        <div className="card-body">
+                          <h5>Total HRs</h5>
+                          <p className="card-text display-6">{totalHRs}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-3">
-                  <div className="card text-white bg-warning">
-                    <div className="card-body">
-                      <h5>Total Applicants</h5>
-                      <p className="card-text display-6">{totalApplicants}</p>
+                    <div className="col-md-4 mb-3">
+                      <div className="card text-white bg-warning">
+                        <div className="card-body">
+                          <h5>Total Applicants</h5>
+                          <p className="card-text display-6">{totalApplicants}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
 
-          {activeView === "addHR" && <AddHR />}
-          {activeView === "viewHR" && <ViewHr />}
+                    
+                  </div>
+                </>
+              )}
+
+              {activeView === "addHR" && <AddHR />}
+              {activeView === "viewHR" && <ViewHr />}
+            </>)}
         </div>
       </div>
     );

@@ -7,8 +7,11 @@ import './login.css';
 import './contactus.css';
 import ContactUsForm from "./component/contactus";
 import Admin from "./component/admindashboard";
-const AddQuestion = () => <h2>Add Questions Page</h2>;
-const ViewQuestion = () => <h2>View Questions Page</h2>;
+
+import JobCards from "./component/home";
+
+
+
 const AttendExam = () => <h2>Attend Exam Page</h2>;
 
 class App extends React.Component {
@@ -20,7 +23,7 @@ class App extends React.Component {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">Home</NavLink>
+                <NavLink className="nav-link" to="/home">Home</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/viewquestion">About</NavLink>
@@ -42,8 +45,8 @@ class App extends React.Component {
         </nav>
 
         <Routes>
-          <Route path="/" element={<AddQuestion />} />
-          <Route path="/viewquestion" element={<ViewQuestion />} />
+          
+          <Route path="/home" element={<JobCards />} />
           <Route path="/attendexam" element={<AttendExam />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contactus" element={<ContactUsForm />} />

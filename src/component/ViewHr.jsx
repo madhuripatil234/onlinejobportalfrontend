@@ -11,7 +11,7 @@ export default function ViewHr() {
   const limit = 5;
   const [loading, setLoading] = useState(true);
 
-  // Fetch paginated list
+  // Fetch paginated HR list
   const fetchHrList = () => {
     setLoading(true);
     HrService.getAllHr(page, limit)
@@ -21,6 +21,7 @@ export default function ViewHr() {
           setTotal(res.data.pagination?.total || res.data.joblist.length);
         } else {
           setHrList([]);
+          setTotal(0);
         }
       })
       .catch((err) => console.error(err))
@@ -29,10 +30,12 @@ export default function ViewHr() {
 
   // Search handler
   const handleSearch = (value) => {
+    setSearchTerm(value);
     if (!value.trim()) {
       fetchHrList();
       return;
     }
+
     setLoading(true);
     HrService.searchHRByName(value)
       .then((res) => {
@@ -54,24 +57,23 @@ export default function ViewHr() {
     HrService.deleteHrById(id)
       .then((res) => {
         if (res.data.status === "delete") {
-          alert(res.data.msg);
-          // After a successful deletion, re-fetch the list to update the UI
-          fetchHrList();
+          alert(res.data.msg); // e.g., "HR deleted successfully"
+          fetchHrList(); // refresh list
         } else {
           alert(res.data.msg || "Delete failed");
         }
       })
       .catch((err) => {
         console.error(err);
-        alert("Error deleting HR");
+        const errorMsg =
+          err.response?.data?.error || err.message || "Unknown error occurred";
+        alert("Error deleting HR: " + errorMsg);
       });
   };
 
-  // Fetch paginated list on page change (only when not searching)
+  // Fetch HR list on page change
   useEffect(() => {
-    if (!searchTerm.trim()) {
-      fetchHrList();
-    }
+    if (!searchTerm.trim()) fetchHrList();
   }, [page, searchTerm]);
 
   const totalPages = Math.ceil(total / limit);
@@ -80,17 +82,14 @@ export default function ViewHr() {
     <div className="container mt-4">
       <h3 className="mb-3">HR List</h3>
 
-      {/* Search Bar */}
+      {/* Search */}
       <div className="d-flex mb-3">
         <input
           type="text"
           placeholder="Search HR by name..."
           className="form-control me-2"
           value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            handleSearch(e.target.value); // Live search
-          }}
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
 
@@ -114,7 +113,7 @@ export default function ViewHr() {
             <tbody>
               {hrList.length > 0 ? (
                 hrList.map((hr) => (
-                  <tr key={hr.hid}>
+                  <tr  className="row-table"key={hr.hid}>
                     <td>{hr.hid}</td>
                     <td>{hr.name}</td>
                     <td>{hr.email}</td>
@@ -142,7 +141,7 @@ export default function ViewHr() {
             </tbody>
           </table>
 
-          {/* Pagination (hide when searching) */}
+          {/* Pagination */}
           {!searchTerm.trim() && (
             <div className="d-flex justify-content-end">
               <nav>

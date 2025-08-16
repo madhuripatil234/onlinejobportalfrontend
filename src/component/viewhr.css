@@ -1,0 +1,58 @@
+/* Gradient table header */
+.table-header {
+  background: linear-gradient(to right, #4311d8, #913b99);
+  color: #fff;
+}
+
+/* Search input */
+.search-box {
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+}
+
+/* Compact table rows */
+.table td,
+.table th {
+  padding: 6px 10px;      /* reduce row height */
+  line-height: 1.2;       /* tighter spacing */
+  vertical-align: middle; 
+  font-size: 0.9rem;      /* slightly smaller font */
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: background 0.2s ease-in-out;
+}
+
+/* Delete button */
+.btn-outline-danger {
+  border-radius: 20px;
+  padding: 2px 8px;       /* smaller button size */
+  font-size: 0.8rem;
+}
+/* Compact pagination */
+.pagination .page-link {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  margin: 0 2px;
+  color: #4311d8;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #5288e6;
+  border-color: #4311d8;
+  color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #aaa;
+  background-color: #f1f1f1;
+}
+tr.row-table{
+
+    height: 200px;
+    border: 1px solid red;
+}
