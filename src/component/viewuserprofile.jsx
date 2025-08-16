@@ -20,7 +20,7 @@ export default function ViewProfile({ uid }) {
         if (data.status === "valid" && data.joblist.length > 0) {
           const application = data.joblist[0]; 
           setProfile(application); 
-          setAid(application.aid); 
+        
         }
       })
       .catch((err) => {
@@ -56,7 +56,9 @@ export default function ViewProfile({ uid }) {
         </div>
       ) : (
         
-        <ScheduleInterview aid={profile.aid} />
+        <ScheduleInterview  aid={profile.aid} 
+                candidateName={profile.name} 
+               jobTitle={profile.job_title}  />
       )}
     </div>
   );

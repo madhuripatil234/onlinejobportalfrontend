@@ -5,6 +5,10 @@ class HRpanel {
         let promise=axios.post("http://localhost:3000/addjobs",Data);
         return promise;
     }
+      viewjobs(){
+        let promise=axios.get("http://localhost:3000/viewjobs");
+         return promise;
+      }
      interviewschedule(aid){
         let promise=axios.post("http://localhost:3000/interviewscheduled",{ aid: aid });
         return promise;

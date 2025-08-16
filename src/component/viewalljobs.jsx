@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import HRpanelservice from "../services/HRpanelservice";
-import ViewProfile from "./viewuserprofile";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function ApplicationsList() {
+export default function ViewJobs() {
   const [applications, setApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [selectedUserId, setSelectedUserId] = useState(null); 
 
   const fetchApplications = (page) => {
-    HRpanelservice.viewuserapply(page)
+    HRpanelservice.viewjobs(page)
       .then((res) => {
         if (Array.isArray(res.data.joblist)) {
           setApplications(res.data.joblist);
@@ -34,14 +32,7 @@ export default function ApplicationsList() {
   };
 
   
-  if (selectedUserId) {
-    return (
-      <ViewProfile 
-        uid={selectedUserId} 
-        goBack={() => setSelectedUserId(null)} 
-      />
-    );
-  }
+  
 
   return (
     <div className="container1 mt-4">
@@ -51,12 +42,13 @@ export default function ApplicationsList() {
         <thead className="table-dark">
           <tr>
             <th>Sr no.</th>
-            <th>Applicant Name</th>
-            <th>Email</th>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Applied Date</th>
-            <th>View Profile</th>
+            <th>company_name</th>
+            <th>title</th>
+            <th>description</th>
+            <th>location</th>
+            <th>salary</th>
+            <th>Job_type</th>
+             <th>posted_date_time</th>
           </tr>
         </thead>
         <tbody>
@@ -64,25 +56,20 @@ export default function ApplicationsList() {
             applications.map((app, index) => (
               <tr key={app.aid || index}>
                 <td>{(currentPage - 1) * applications.length + index + 1}</td>
-                <td>{app.applicant_name}</td>
-                <td>{app.uemail}</td>
-                <td>{app.job_title}</td>
                 <td>{app.company_name}</td>
-                <td>{new Date(app.applied_on).toLocaleDateString()}</td>
-                <td>
-                  <button
-                    className="btn btn-primary btn-sm w-100"
-                    onClick={() => setSelectedUserId(app.uid)}
-                  >
-                    View Profile
-                  </button>
-                </td>
+                <td>{app.title}</td>
+                <td>{app.description}</td>
+                <td>{app.location}</td>
+                <td>{app.salary}</td>
+                <td>{app.job_type}</td>
+                <td>{new Date(app.posted_date_time).toLocaleDateString()}</td>
+            
               </tr>
             ))
           ) : (
             <tr>
               <td colSpan="7" className="text-center">
-                No applications found
+                No jobs found
               </td>
             </tr>
           )}

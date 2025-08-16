@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import HRpanelservice from "../services/HRpanelservice";
 
-export default function ScheduleInterview({ aid }) {
+export default function ScheduleInterview({ aid, candidateName, jobTitle }) {
   const [formData, setFormData] = useState({
-    aid:aid,
     idate: "",
     itime: "",
     mode: "",
@@ -15,33 +14,43 @@ export default function ScheduleInterview({ aid }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      if (name === "mode") {
-        return {
-          ...prev,
-          mode: value,
-          location: value === "Offline" ? prev.location : "",
-          meeting_link: value === "Online" ? prev.meeting_link : ""
-        };
-      }
-      return { ...prev, [name]: value };
-    });
+
+    
+    if (name === "mode") {
+      setFormData((prev) => ({
+        ...prev,
+        mode: value,
+        location: value === "Offline" ? prev.location : "",
+        meeting_link: value === "Online" ? prev.meeting_link : ""
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  const sendscheduleToServer = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    HRpanelservice.interviewschedule(formData)
-      .then((result) => {
-        setMsg(result.data.msg || "Interview scheduled successfully");
-        setFormData((prev) => ({
-          ...prev,
+   
+    const payload = {
+      aid,
+      idate: formData.idate,
+      itime: formData.itime,
+      mode: formData.mode,
+      location: formData.mode === "Offline" ? formData.location : "",
+      meeting_link: formData.mode === "Online" ? formData.meeting_link : ""
+    };
+
+    HRpanelservice.interviewschedule(payload)
+      .then((res) => {
+        setMsg(res.data.msg || "Interview scheduled successfully");
+        setFormData({
           idate: "",
           itime: "",
           mode: "",
           location: "",
           meeting_link: ""
-        }));
+        });
       })
       .catch((err) => {
         setMsg(err.response?.data?.msg || err.message || "Something went wrong");
@@ -49,20 +58,22 @@ export default function ScheduleInterview({ aid }) {
   };
 
   return (
-    <div className="container1 mt-4 bg-light mx-auto" style={{ maxWidth: "400px" }}>
-      <h3 className="mb-3 text-center">Schedule Interview</h3>
+    <div className="container1 mt-4 bg-light"  style={{ maxWidth: "500px", margin:"auto" }}>
+      <h3 style={{textAlign:"center"}}>Schedule Interview</h3>
+      <h5>Candidate: {candidateName}</h5>
+     
 
       {msg && <div className="alert alert-info">{msg}</div>}
 
-      <form className="border p-3 rounded" onSubmit={sendscheduleToServer}>
+      <form onSubmit={handleSubmit} className="border p-3 rounded">
         <div className="mb-3">
           <label className="form-label">Application ID</label>
           <input
             type="text"
-            className="form-control"
             name="aid"
-            value={formData.aid}
+            value={aid}
             readOnly
+            className="form-control"
           />
         </div>
 
@@ -70,10 +81,10 @@ export default function ScheduleInterview({ aid }) {
           <label className="form-label">Interview Date</label>
           <input
             type="date"
-            className="form-control"
             name="idate"
             value={formData.idate}
             onChange={handleChange}
+            className="form-control"
             required
           />
         </div>
@@ -82,10 +93,10 @@ export default function ScheduleInterview({ aid }) {
           <label className="form-label">Interview Time</label>
           <input
             type="time"
-            className="form-control"
             name="itime"
             value={formData.itime}
             onChange={handleChange}
+            className="form-control"
             required
           />
         </div>
@@ -93,10 +104,10 @@ export default function ScheduleInterview({ aid }) {
         <div className="mb-3">
           <label className="form-label">Mode</label>
           <select
-            className="form-select"
             name="mode"
             value={formData.mode}
             onChange={handleChange}
+            className="form-select"
             required
           >
             <option value="">Select Mode</option>
@@ -110,10 +121,10 @@ export default function ScheduleInterview({ aid }) {
             <label className="form-label">Location</label>
             <input
               type="text"
-              className="form-control"
               name="location"
               value={formData.location}
               onChange={handleChange}
+              className="form-control"
               placeholder="Enter location"
               required
             />
@@ -125,10 +136,10 @@ export default function ScheduleInterview({ aid }) {
             <label className="form-label">Meeting Link</label>
             <input
               type="text"
-              className="form-control"
               name="meeting_link"
               value={formData.meeting_link}
               onChange={handleChange}
+              className="form-control"
               placeholder="Enter meeting link"
               required
             />
@@ -136,7 +147,7 @@ export default function ScheduleInterview({ aid }) {
         )}
 
         <button type="submit" className="btn btn-primary w-100">
-          Schedule
+          Schedule Interview
         </button>
       </form>
     </div>
